@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DialogResetPassword from "@/components/Dialogs/DialogResetPassword";
 import { getApi } from "@/lib/api";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
@@ -30,143 +31,160 @@ interface User {
   role: string;
 }
 const Profile = () => {
-  const [profile, setProfile] = useState<User[]>([]);
   const [user, setUser] = useState<string>("");
-  const [role, setRole] = useState<string>("");
+  const [profile, setProfile] = useState<User[]>([]);
   const [id, setId] = useState(0);
+
+  const fetchData = async () => {
+    const result = await getApi("/user", `${user}`);
+    setProfile(result?.data);
+    setId(result?.data?.result?.id);
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const a = localStorage.getItem("name") || "";
-      const b = localStorage.getItem("role") || "";
-      setUser(a);
-      setRole(b);
-    }
-  }, []);
 
-  const fetchData = async () => {
-    const getProfile = await getApi("/user", `${user}`);
-    setProfile(getProfile?.data?.data);
-    setId(getProfile?.data?.data);
-  };
+      setUser(a);
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    } else {
+      fetchData();
+    }
+  }, [user]);
 
   const renderProfile = () => {
-    return Object.keys(profile).map((item: any, i) => {
-      const d = new Date(profile[item].tanggal_lahir);
+    return Object.keys(profile).map((data: any, i) => {
+      const d = new Date(profile[data].tanggal_lahir);
       const tgl = d.toLocaleDateString("id-ID", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
       return (
-        <main className="w-full flex gap-4" key={i}>
-          {/* Personal Identity */}
-          <figure className="w-1/2 border shadow-2xl rounded-lg grid grid-cols-2 px-10 py-5 gap-4 mx-8">
-            <div>
-              <label>First Name</label>
-              <p className="font-bold capitalize">
-                {profile[item].first_name || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Last Name</label>
-              <p className="font-bold capitalize">
-                {profile[item].last_name || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Email</label>
-              <p className="font-bold">{profile[item].email || " - "}</p>
-            </div>
-            <div>
-              <label>Birth Place</label>
-              <p className="font-bold capitalize">
-                {profile[item].tempat_lahir || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Birth Date</label>
-              <p className="font-bold capitalize">{tgl || " - "}</p>
-            </div>
-            <div>
-              <label>Posisi</label>
-              <p className="font-bold capitalize">
-                {profile[item].posisi || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Religion</label>
-              <p className="font-bold capitalize">
-                {profile[item].agama || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Gender</label>
-              <p className="font-bold capitalize">
-                {profile[item].jenis_kelamin || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Hobby</label>
-              <p className="font-bold capitalize">
-                {profile[item].hobby || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Phone Number</label>
-              <p className="font-bold capitalize">
-                {profile[item].nomor_hp || " - "}
-              </p>
-            </div>
-          </figure>
+        <main key={i}>
+          <h3 className="mb-1.5 text-2xl font-semibold text-black capitalize dark:text-white">
+            {profile[data].first_name}
+          </h3>
+          <p className="font-medium mb-5.5 capitalize">{profile[data].role}</p>
+          <div className="w-full flex justify-end gap-4">
+            <Link href={`/dashboard/profile/${id}`}>
+              <button className="p-4 mb-5 rounded-lg text-white bg-blue hover:bg-lightblue">
+                Edit Profile
+              </button>
+            </Link>
+            <DialogResetPassword id={id} />
+          </div>
+          <main className="w-full flex gap-4">
+            {/* Personal Identity */}
+            <figure className="w-1/2 border shadow-2xl rounded-lg grid grid-cols-2 px-10 py-5 gap-4 mx-8">
+              <div>
+                <label>First Name</label>
+                <p className="font-bold capitalize">
+                  {profile[data].first_name || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Last Name</label>
+                <p className="font-bold capitalize">
+                  {profile[data].last_name || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Email</label>
+                <p className="font-bold">{profile[data].email || " - "}</p>
+              </div>
+              <div>
+                <label>Birth Place</label>
+                <p className="font-bold capitalize">
+                  {profile[data].tempat_lahir || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Birth Date</label>
+                <p className="font-bold capitalize">{tgl || " - "}</p>
+              </div>
+              <div>
+                <label>Posisi</label>
+                <p className="font-bold capitalize">
+                  {profile[data].posisi || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Religion</label>
+                <p className="font-bold capitalize">
+                  {profile[data].agama || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Gender</label>
+                <p className="font-bold capitalize">
+                  {profile[data].jenis_kelamin || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Hobby</label>
+                <p className="font-bold capitalize">
+                  {profile[data].hobby || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Phone Number</label>
+                <p className="font-bold capitalize">
+                  {profile[data].nomor_hp || " - "}
+                </p>
+              </div>
+            </figure>
 
-          {/* Address */}
-          <figure className="w-1/2 border shadow-2xl rounded-lg grid grid-cols-2 px-10 py-5 gap-4 mx-8">
-            <div>
-              <label>Address</label>
-              <p className="font-bold capitalize">
-                {profile[item].alamat || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Province</label>
-              <p className="font-bold capitalize">
-                {profile[item].provinsi || " - "}
-              </p>
-            </div>
-            <div>
-              <label>District</label>
-              <p className="font-bold capitalize">
-                {profile[item].daerah || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Sub District</label>
-              <p className="font-bold capitalize">
-                {profile[item].kecamatan || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Urban Village</label>
-              <p className="font-bold capitalize">
-                {profile[item].kelurahan || " - "}
-              </p>
-            </div>
-            <div>
-              <label>Postal Code</label>
-              <p className="font-bold capitalize">
-                {profile[item].kode_pos || " - "}
-              </p>
-            </div>
-          </figure>
+            {/* Address */}
+            <figure className="w-1/2 border shadow-2xl rounded-lg grid grid-cols-2 px-10 py-5 gap-4 mx-8">
+              <div>
+                <label>Address</label>
+                <p className="font-bold capitalize">
+                  {profile[data].alamat || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Province</label>
+                <p className="font-bold capitalize">
+                  {profile[data].provinsi || " - "}
+                </p>
+              </div>
+              <div>
+                <label>District</label>
+                <p className="font-bold capitalize">
+                  {profile[data].daerah || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Sub District</label>
+                <p className="font-bold capitalize">
+                  {profile[data].kecamatan || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Urban Village</label>
+                <p className="font-bold capitalize">
+                  {profile[data].kelurahan || " - "}
+                </p>
+              </div>
+              <div>
+                <label>Postal Code</label>
+                <p className="font-bold capitalize">
+                  {profile[data].kode_pos || " - "}
+                </p>
+              </div>
+            </figure>
+          </main>
         </main>
       );
     });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [user]);
   return (
     <>
       <Breadcrumb pageName="Profile" />
@@ -224,16 +242,7 @@ const Profile = () => {
               </label>
             </div>
           </div>
-          <div className="mt-4">
-            <h3 className="mb-1.5 text-2xl font-semibold text-black capitalize dark:text-white">
-              {user}
-            </h3>
-            <p className="font-medium mb-5.5 capitalize">{role}</p>
-            <div className="w-full text-end">
-              <DialogResetPassword id={id} />
-            </div>
-            {renderProfile()}
-          </div>
+          <div className="mt-4">{renderProfile()}</div>
         </div>
       </div>
     </>

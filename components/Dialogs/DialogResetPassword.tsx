@@ -17,9 +17,6 @@ const DialogResetPassword = ({ id }: any) => {
   const [new_password, setNewPassword] = useState("");
   const [v_new_password, setVNewPassword] = useState("");
   const [message, setMessage] = useState("");
-  const mapped = Object.keys(id).map((i: any) => {
-    return id[i].id;
-  });
 
   const handleReset = async () => {
     try {
@@ -29,7 +26,7 @@ const DialogResetPassword = ({ id }: any) => {
           setMessage("");
         }, 1500);
       } else {
-        const result = await postData(`/user/update/${mapped}`, {
+        const result = await postData(`/user/reset/${id}`, {
           password,
           new_password,
         });
@@ -49,7 +46,7 @@ const DialogResetPassword = ({ id }: any) => {
       </DialogTrigger>
       <DialogContent className=" bg-white">
         <DialogHeader className="items-center">
-          <DialogTitle>Ralat</DialogTitle>
+          <DialogTitle>Reset Password</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col gap-4">

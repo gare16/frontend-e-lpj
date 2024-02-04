@@ -29,6 +29,7 @@ import DialogRalatAdmin from "../Dialogs/admin/DialogRalat";
 import DialogRalatUser from "../Dialogs/user/DialogRalat";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import DialogUpdateStatus from "../Dialogs/DialogStatus";
+import FooterChecking from "../pageSurat/footer";
 
 type Props = {
   name: string;
@@ -467,6 +468,7 @@ const TableMeetingDalamKota = () => {
       ]);
     }
   };
+
   const handleOnChange = (e: any, key: any) => {
     let res = [...datas];
     res[key].col_8 = e.target.checked;
@@ -545,7 +547,7 @@ const TableMeetingDalamKota = () => {
                   ""
                 )}
               </TableCell>
-              <TableCell className="blue-sm">
+              <TableCell className="blur-sm">
                 {item?.col_2 !== null ? (
                   typeof item?.col_2 === "boolean" ? (
                     <input
@@ -731,6 +733,7 @@ const TableMeetingDalamKota = () => {
           ))}
         </TableBody>
       </Table>
+      <FooterChecking />
       <ToastContainer
         position="top-right"
         autoClose={3000}

@@ -29,6 +29,7 @@ import DialogRalatAdmin from "../Dialogs/admin/DialogRalat";
 import DialogRalatUser from "../Dialogs/user/DialogRalat";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import DialogUpdateStatus from "../Dialogs/DialogStatus";
+import FooterChecking from "../pageSurat/footer";
 
 type Props = {
   name: string;
@@ -731,6 +732,7 @@ const TableHonorNarasumber = () => {
           ))}
         </TableBody>
       </Table>
+      <FooterChecking />
       <ToastContainer
         position="top-right"
         autoClose={3000}
