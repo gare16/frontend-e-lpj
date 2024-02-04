@@ -9,7 +9,7 @@ import Link from "next/link";
 export function CardListFile({ props }: any) {
   return (
     <Link
-      href={`${process.env.BASE_URL_API}/view/file/${props.id}`}
+      href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/file/${props.id}`}
       target="_blank"
     >
       <div className="w-65 h-75 overflow-hidden border rounded-md">
