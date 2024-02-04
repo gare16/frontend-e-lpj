@@ -36,7 +36,7 @@ export function TableDrafts() {
           <TableCell>0{key + 1}</TableCell>
           <TableCell className="hidden text-center capitalize  sm:table-cell hover:underline">
             <Link
-              href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/surat/${data.id}`}
+              href={`${process.env.BASE_URL_API}/view/surat/${data.id}`}
               target="_blank"
             >
               {data.deskripsi}

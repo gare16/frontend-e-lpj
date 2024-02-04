@@ -10,7 +10,7 @@ export const postData = async (
   options?: RequestOptions
 ) => {
   const post = await axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL_API}${resources}`,
+    `${process.env.BASE_URL_API}${resources}`,
     {
       data,
     },
@@ -22,7 +22,7 @@ export const postData = async (
 export const getApi = async (resources: any, query?: any) => {
   const token = localStorage.getItem("token");
   const laporan = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL_API}${resources}?search=${query}`,
+    `${process.env.BASE_URL_API}${resources}?search=${query}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

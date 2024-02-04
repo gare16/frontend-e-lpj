@@ -31,9 +31,18 @@ interface User {
 }
 const Profile = () => {
   const [profile, setProfile] = useState<User[]>([]);
+  const [user, setUser] = useState<string>("");
+  const [role, setRole] = useState<string>("");
   const [id, setId] = useState(0);
-  const user = window.localStorage?.getItem("name");
-  const role = window.localStorage?.getItem("role");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const a = localStorage.getItem("name") || "";
+      const b = localStorage.getItem("role") || "";
+      setUser(a);
+      setRole(b);
+    }
+  }, []);
 
   const fetchData = async () => {
     const getProfile = await getApi("/user", `${user}`);
