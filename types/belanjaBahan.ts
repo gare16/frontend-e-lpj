@@ -1,0 +1,26 @@
+export type BelanjaBahan = {
+  ba_pembayaran: null;
+  ba_serah_terima: null;
+  boarding_pass: null;
+  bp_apbn: Boolean;
+  copy_paspor: null;
+  copy_personal: null;
+  copy_spk: null;
+  daftar_hadir: null;
+  dokumentasi: Boolean;
+  faktur_pajak: Boolean;
+  form_ppd: null;
+  garansi_bank: null;
+  honor: null;
+  kuitansi: Boolean;
+  kwitansi_hotel: null;
+  notulensi: null;
+  paparan: null;
+  rpa: null;
+  sp_pengeluaran: null;
+  spd: null;
+  sppd: null;
+  sptj_mutlak: null;
+  surat_tugas: null;
+  undangan: null;
+};
