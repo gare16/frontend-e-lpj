@@ -65,12 +65,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <div className="flex justify-center items-center">
-          <Image
-            src={"/images/logo/logoSDI-wotext.png"}
-            width={50}
-            height={50}
-            alt="Logo Satu Data Indonesia"
-          />
+          <div className="w-10"></div>
           <h3 className="w-full text-2xl text-whiten">E-LPJ</h3>
         </div>
 

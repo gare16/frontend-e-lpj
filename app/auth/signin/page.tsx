@@ -74,17 +74,20 @@ const SignIn: React.FC = () => {
       <div className="flex min-h-screen justify-center rounded-md border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-graydark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
-            <div className="flex justify-center items-center py-17.5 px-26 text-center">
+            <div className="flex justify-center items-center py-17.5 px-26 text-center scale-110">
               <Image
-                src={"/images/logo/logoSDI-wotext.png"}
+                src={"/images/logo/mrpn-notext.png"}
                 alt="..."
-                width={100}
-                height={100}
+                width={120}
+                height={120}
                 priority
               />
-              <label className="text-3xl dark:text-white">
-                Satu Data Indonesia
-              </label>
+              <div className="flex flex-col">
+                <label className="text-3xl dark:text-white">MRPN</label>
+                <label className="text-lg text dark:text-white">
+                  Manajemen Risiko Pembangunan Nasional
+                </label>
+              </div>
             </div>
           </div>
 
