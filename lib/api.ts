@@ -19,7 +19,7 @@ export const postData = async (
   return post;
 };
 
-export const getApi = async (resources: any, query?: any) => {
+export const getApi = async (resources: string, query?: string) => {
   const token = localStorage.getItem("token");
   const laporan = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL_API}${resources}?search=${query}`,
