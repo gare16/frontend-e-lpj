@@ -16,7 +16,6 @@ import { postData } from "@/lib/api";
 import { Button } from "../ui/button";
 
 const DialogUpdateChecking = ({ id, datas }: any) => {
-  const verifikatorName = localStorage.getItem("name");
   const newDate = Date.now();
   const updatedAt = new Date(newDate);
   const handleUpdate = async (e: { preventDefault: () => void }) => {
@@ -24,7 +23,6 @@ const DialogUpdateChecking = ({ id, datas }: any) => {
     try {
       const response = await postData(`/update/${id}`, {
         datas,
-        verifikatorName,
         updatedAt,
       });
       window.location.reload();
