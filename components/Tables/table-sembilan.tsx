@@ -502,7 +502,7 @@ const TableMeetingLuarKota = () => {
           </>
         ) : null}
         <div data-tooltip-id="tooltip-status">
-          <DialogUpdateStatus id={id.id} />
+          {user !== "user" ? <DialogUpdateStatus id={id.id} /> : null}
         </div>
         <ReactTooltip id="tooltip-status" place="top" content="Status Done" />
 
