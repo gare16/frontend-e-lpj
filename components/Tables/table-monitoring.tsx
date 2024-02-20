@@ -77,7 +77,7 @@ export function TableMonitoring() {
   }, [currentPage, nextPage]);
 
   const renderRows = () => {
-    return datas.map((data, key) => {
+    return datas?.map((data, key) => {
       const getPYear: number = new Date(
         data.tanggal_pengajuan
       ).getUTCFullYear();

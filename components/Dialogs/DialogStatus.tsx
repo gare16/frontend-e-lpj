@@ -16,11 +16,13 @@ import { postData } from "@/lib/api";
 import { Button } from "../ui/button";
 
 const DialogUpdateStatus = ({ id }: any) => {
+  const username = localStorage.getItem("name");
   const handleUpdate = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       const response = await postData(`/laporan/status/${id}`, {
         status: "Done",
+        verifikatorName: username,
       });
       // window.location.reload();
       toast.success("Done", {
