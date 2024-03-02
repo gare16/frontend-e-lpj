@@ -2,8 +2,10 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-const SuratTugas = dynamic(() => import("@/components/pageSurat/surat-tugas"));
-const Undangan = dynamic(() => import("@/components/pageSurat/undangan"));
+const SuratTugas = dynamic(
+  () => import("@/components/pages/pageSurat/surat-tugas")
+);
+const Undangan = dynamic(() => import("@/components/pages/pageSurat/undangan"));
 const Select = dynamic(() => import("react-select"));
 
 const Page = () => {

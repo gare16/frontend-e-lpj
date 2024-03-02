@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,15 +14,7 @@ const SignIn: React.FC = () => {
   const [validation, setValidation] = React.useState("");
   const route = useRouter();
 
-  function setCookie(cname: any, cvalue: any, exdays: any) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
   const handleLogin = async () => {
-    const expiresIn = 60 * 60 * 24;
     if (!username) {
       setValidation("Input Username");
     } else if (!password) {
@@ -34,11 +26,11 @@ const SignIn: React.FC = () => {
           username,
           password,
         });
-        setCookie("token", result?.data?.token, expiresIn);
         if (typeof window !== "undefined") {
           localStorage.setItem("name", result?.data?.name);
           localStorage.setItem("role", result?.data?.role);
           localStorage.setItem("token", result?.data?.token);
+          localStorage.setItem("isLogin", "true");
         }
         axios.defaults.headers.common.Authorization = `Bearer ${result?.data?.token}`;
         toast.success(`${result.data?.message}`, {

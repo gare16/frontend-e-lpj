@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import jsPDF from "jspdf";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
-import Loader from "../common/Loader";
+import Loader from "@/components/common/Loader";
 
 const SuratTugas = () => {
   const [value, setValue] = useState("");

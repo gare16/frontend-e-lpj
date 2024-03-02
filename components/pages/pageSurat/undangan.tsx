@@ -7,7 +7,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import TemplateUndangan from "../TempletePDF/templete-undangan";
+import TemplateUndangan from "@/components/TempletePDF/templete-undangan";
 type TipeFile = {
   value: string;
   label: string;

@@ -20,7 +20,7 @@ const DialogDeleteSurat = ({ props }: any) => {
     e.preventDefault();
     try {
       const response = await getApi(`/surat/${props.toString()}`);
-      window.location.reload();
+      // window.location.reload();
     } catch (error: any) {
       toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",

@@ -20,7 +20,7 @@ import { getApi, postData } from "@/lib/api";
 
 export function DialogAddMonitoring({ pagu }: any) {
   const [number, setNumber] = useState("");
-  const [kode_mak, setKodeMak] = useState(0);
+  const [kode_mak, setKodeMak] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [nilai_lpj, setNilaiLPJ] = useState(0);
   const [tanggal_pengajuan, setTanggalPengajuan] = useState<Date>();

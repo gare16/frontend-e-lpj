@@ -1,194 +1,221 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { postData } from "@/lib/api";
-import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
+import WilayahAPI from "./profiles/wilayahAPI";
+import SaveUpdateProfile from "../Dialogs/DialogNotificationUpdateProfile";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { Date } from "@/types/date";
+
+type PayloadProfile = {
+  first_name: string;
+  last_name: string;
+  nik: string;
+  tempat_lahir: string;
+  tanggal_lahir: Date | any;
+  posisi: string;
+  agama: string;
+  jenis_kelamin: string;
+  hobby: string;
+  nomor_hp: string;
+  kode_pos: string;
+  alamat: string;
+  provinsi: string;
+  daerah: string;
+  kecamatan: string;
+  kelurahan: string;
+};
 
 const UpdateUser = () => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [nik, setNik] = useState("");
   const [tempat_lahir, setTempatLahir] = useState("");
-  const [tanggal_lahir, setTanggalLahir] = useState<Date>();
+  const [tanggal_lahir, setTanggalLahir] = useState<Date | any>();
   const [posisi, setPosisi] = useState("");
   const [agama, setAgama] = useState("");
-  const [jenis_kelamin, setJenisKelamin] = useState("");
+  const [jenis_kelamin, setJenisKelamin] = useState("male");
   const [hobby, setHobby] = useState("");
   const [nomor_hp, setNomorHP] = useState("");
   const [alamat, setAlamat] = useState("");
-  const [provinsi, setProvinsi] = useState("");
-  const [daerah, setDaerah] = useState("");
-  const [kecamatan, setKecamatan] = useState("");
-  const [kelurahan, setKelurahan] = useState("");
   const [kode_pos, setKodePos] = useState("");
 
-  const [endPoint, setEndPoint] = useState("");
+  const id = useParams();
 
-  const [data_provinsi, setDataProvinsi] = useState<any[]>([]);
-  const [data_Kabupaten, setDataKab] = useState<any[]>([]);
+  const [wilayah, setWilayah] = useState<object | any>();
 
-  const fetchWilayah = async () => {
-    const result = await axios.get(
-      "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
-    );
-    setDataProvinsi(result?.data);
+  const payload: PayloadProfile = {
+    agama: agama,
+    alamat: alamat,
+    provinsi: wilayah?.province,
+    daerah: wilayah?.daerah,
+    kecamatan: wilayah?.kecamatan,
+    kelurahan: wilayah?.kelurahan,
+    first_name: first_name,
+    hobby: hobby,
+    jenis_kelamin: jenis_kelamin,
+    kode_pos: kode_pos,
+    last_name: last_name,
+    nik: nik,
+    nomor_hp: nomor_hp,
+    posisi: posisi,
+    tanggal_lahir: tanggal_lahir,
+    tempat_lahir: tempat_lahir,
   };
 
-  const handleOnChangeSelected = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const value = event.target.value;
-    const split = value.split(",");
-    setEndPoint(split[0]);
-    setProvinsi(split[1]);
-  };
-  useEffect(() => {
-    fetchWilayah();
-  }, []);
-
-  const id = useParams;
-
-  const handleReset = async () => {
-    try {
-      const result = await postData(`/user/update/${id}`, {
-        first_name,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const handleDataWilayah = (newData: object) => {
+    setWilayah(newData);
   };
   return (
-    <div className="w-full h-screen flex">
-      <div className="w-1/2 flex flex-wrap gap-4 py-4">
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">First Name</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Last Name</Label>
-          <Input type="text" onChange={(e) => setLastName(e.target.value)} />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">NIK/NIP</Label>
-          <Input type="text" onChange={(e) => setNik(e.target.value)} />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Posisi</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setPosisi(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Birth Date</Label>
-          <Input
-            type="date"
-            className="w-50"
-            onChange={(e: any) => setTanggalLahir(e.target.valueAsDates)}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Birth Place</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setTempatLahir(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Agama</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setAgama(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Gender</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setJenisKelamin(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Hobby</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setHobby(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Phone Number</Label>
-          <Input
-            type="text"
-            onChange={(e) => {
-              setNomorHP(e.target.value);
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="w-1/2 grid gap-4 py-4">
-        <div className="flex flex-col gap-4">
-          <Label className="text-left">Provinsi</Label>
-          <select onChange={handleOnChangeSelected}>
-            {data_provinsi.map((data, i) => {
-              return (
-                <option
-                  key={i}
-                  value={[data.id, data.name]}
-                  onChange={() => console.log(data.name)}
-                >
-                  {data.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        {!provinsi ? null : (
+    <>
+      <div className="w-full h-screen flex">
+        <div className="w-1/2 flex flex-wrap gap-4 py-4">
           <div className="flex flex-col gap-4">
-            <Label className="text-left">District</Label>
-            <select onChange={handleOnChangeSelected}>
-              {data_provinsi.map((data, i) => {
-                return (
-                  <option
-                    key={i}
-                    value={[data.id, data.name]}
-                    onChange={() => console.log(data.name)}
-                  >
-                    {data.name}
-                  </option>
-                );
-              })}
+            <Label className="text-left">First Name</Label>
+            <Input
+              type="text"
+              placeholder="Ex. Jacob"
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Last Name</Label>
+            <Input
+              type="text"
+              placeholder="Ex. Jonathan"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">NIK/NIP</Label>
+            <Input
+              type="text"
+              placeholder="Ex. 32170793875192"
+              onChange={(e) => setNik(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Posisi</Label>
+            <Input
+              type="text"
+              onChange={(e) => {
+                setPosisi(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Birth Date</Label>
+            <Input
+              type="date"
+              className="w-50"
+              onChange={(e: any) => setTanggalLahir(e.target.valueAsDate)}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Birth Place</Label>
+            <Input
+              type="text"
+              placeholder="Ex. Jakarta"
+              onChange={(e) => {
+                setTempatLahir(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Agama</Label>
+            <Input
+              type="text"
+              placeholder="Ex. Islam"
+              onChange={(e) => {
+                setAgama(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Gender</Label>
+            <select
+              className="w-50 p-2 border bg-white rounded-lg"
+              onChange={(e) => setJenisKelamin(e.target.value)}
+              defaultValue={"male"}
+            >
+              <option value={"male"}>Male</option>
+              <option value={"female"}>Female</option>
+              <option value={"-"}> - </option>
             </select>
           </div>
-        )}
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Hobby</Label>
+            <Input
+              type="text"
+              onChange={(e) => {
+                setHobby(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Phone Number</Label>
+            <Input
+              type="text"
+              onChange={(e) => {
+                setNomorHP(e.target.value);
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="w-1/2 flex flex-col gap-4 py-4">
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Address</Label>
+            <Input
+              type="text"
+              onChange={(e) => {
+                setAlamat(e.target.value);
+              }}
+            />
+          </div>
+          <WilayahAPI dataAddress={handleDataWilayah} />
+
+          <div className="flex flex-col gap-4">
+            <Label className="text-left">Postal Code</Label>
+            <Input
+              type="text"
+              onChange={(e) => {
+                setKodePos(e.target.value);
+              }}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+      <div className="w-full flex justify-center">
+        <SaveUpdateProfile datas={payload} id={id} />
+      </div>
+      <ToastContainer
+        className={"z-9999"}
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
   );
 };
 

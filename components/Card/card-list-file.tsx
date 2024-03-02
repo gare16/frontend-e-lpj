@@ -1,15 +1,11 @@
-import {
-  CardTitle,
-  CardDescription,
-  CardContent,
-  Card,
-} from "@/components/ui/card";
+import { CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
 export function CardListFile({ props }: any) {
+  const token = localStorage.getItem("token");
   return (
     <Link
-      href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/file/${props.id}`}
+      href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/file/${props.id}?token=${token}`}
       target="_blank"
     >
       <div className="w-65 h-75 overflow-hidden border rounded-md">

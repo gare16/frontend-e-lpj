@@ -15,6 +15,7 @@ import { resultLaporan } from "@/types/laporan";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DialogDeleteMonitoring from "../Dialogs/DialogDeleteMonitoring";
+import DropdownDefault from "../Dropdowns/DropdownDefault";
 
 export function TableMonitoring() {
   const [datas, setDatas] = useState<resultLaporan[]>([]);
@@ -243,7 +244,8 @@ export function TableMonitoring() {
             className="border shadow-lg rounded-lg p-2"
             onClick={() => {
               setCurrentPage(currentPage - 10);
-              nextPage >= 10 ? null : setNextPage(nextPage - 10);
+              setNextPage(nextPage - 10);
+              console.log("current page", currentPage, ", next page", nextPage);
             }}
           >
             <svg
@@ -266,6 +268,7 @@ export function TableMonitoring() {
             onClick={() => {
               setCurrentPage(currentPage + 10);
               setNextPage(nextPage + 10);
+              console.log("current page", currentPage, ", next page", nextPage);
             }}
           >
             <svg

@@ -29,7 +29,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import DialogRalatAdmin from "../Dialogs/admin/DialogRalat";
 import DialogRalatUser from "../Dialogs/user/DialogRalat";
 import DialogUpdateStatus from "../Dialogs/DialogStatus";
-import FooterChecking from "../pageSurat/footer";
+import FooterChecking from "../pages/pageSurat/footer";
 
 type Props = {
   name: string;

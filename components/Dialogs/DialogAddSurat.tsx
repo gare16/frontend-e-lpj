@@ -75,7 +75,7 @@ export function DialogAddSurat() {
             <div className="flex gap-2">
               <div
                 {...getRootProps()}
-                className="w-full h-28 border flex flex-col items-center justify-center gap-2 rounded-md"
+                className="w-96 h-28 border flex flex-col items-center justify-center gap-2 rounded-md overflow-hidden"
               >
                 <input {...getInputProps()} />
                 <svg
@@ -91,7 +91,7 @@ export function DialogAddSurat() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                {!isDragActive && textView}
+                {!isDragActive && <p className="">{textView}</p>}
                 {isDragActive && !isDragReject && "Drop it like it's hot!"}
                 {isDragReject && "File type not accepted, sorry!"}
               </div>

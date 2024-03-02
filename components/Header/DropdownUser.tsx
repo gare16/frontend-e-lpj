@@ -12,13 +12,7 @@ const DropdownUser = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    document.cookie.split(";").forEach(function (c) {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
     localStorage.clear();
-
     router.push("/");
   };
 

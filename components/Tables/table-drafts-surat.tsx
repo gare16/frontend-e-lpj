@@ -31,12 +31,13 @@ export function TableDrafts() {
 
   const renderRows = () => {
     return datas.map((data, key) => {
+      const token = localStorage.getItem("token");
       return (
         <TableRow className={"bg-gray-100"} key={key}>
           <TableCell>0{key + 1}</TableCell>
           <TableCell className="hidden text-center capitalize  sm:table-cell hover:underline">
             <Link
-              href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/surat/${data.id}`}
+              href={`${process.env.NEXT_PUBLIC_BASE_URL_API}/view/surat/${data.id}?token=${token}`}
               target="_blank"
             >
               {data.deskripsi}
